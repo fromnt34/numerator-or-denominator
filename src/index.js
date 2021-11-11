@@ -2,8 +2,8 @@ require('dotenv').config();
 const VkBot = require('node-vk-bot-api');
 
 // helpers
-const { triggers } = require('./helpers/triggers/triggers');
-const { rebuildTrigger, prepareTriggers } = require('./helpers/triggers/helpers/triggers');
+const { triggers } = require('./triggers/triggers');
+const { rebuildTrigger, prepareTriggers } = require('./helpers/triggers/triggers');
 const { fromAdvancedObjectToNormal } = require('./helpers/objects/objects');
 const { curry, reverseArguments } = require('./helpers/functionalProgramming/functionalProgramming');
 
