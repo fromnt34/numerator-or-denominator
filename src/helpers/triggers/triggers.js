@@ -1,36 +1,56 @@
-// commands
-const numeratorOrDenominator = require('../../commands/numeratorOrDenominator');
-const displayHelp = require('../../commands/displayHelp');
-
 // helpers
-const { deleteTriggerProperty, prepareTriggers } = require('./helpers/triggers');
-const { lastElementOfArray } = require('../arrays/arrays');
-const { curry, reverseArguments } = require('../functionalProgramming/functionalProgramming');
+const { objectCopy } = require('../objects/objects');
 
 
 
-const triggers = [
-	{
-		names: ['Чз', 'Числитель или знаменатель'],
-		description: 'команда выводит информацию о текущей неделе, числитель она или знаменатель',
-		command: numeratorOrDenominator,
-	},
-	{
-		names: ['Помощь', 'Help'],
-		description: 'команда выводит информацию о доступных командах',
-		command: null
+function getTriggerNames(trigger) {
+	return trigger.names;
+}
+
+exports.getTriggerNames = getTriggerNames;
+
+
+function getTriggerDescription(trigger) {
+	return trigger.description;
+}
+
+exports.getTriggerDescription = getTriggerDescription;
+
+
+function deleteTriggerProperty(trigger, property) {
+	const triggerCopy = objectCopy(trigger);
+
+	delete triggerCopy[property];
+
+	return triggerCopy;
+}
+
+exports.deleteTriggerProperty = deleteTriggerProperty;
+
+
+
+function prepareTriggers(triggers, prepareFunction) {
+	const preparedTriggers = triggers.map(prepareFunction);
+
+	return preparedTriggers;
+}
+
+exports.prepareTriggers = prepareTriggers;
+
+
+function rebuildTrigger(trigger, transformation) {
+	const result = {};
+
+
+	for (const untransformedKey in transformation) {
+		const transformedKey = transformation[untransformedKey];
+		const value = trigger[untransformedKey];
+
+		result[transformedKey] = value;
 	}
-];
-
-// add to "Help" trigger a command
-const preparedTriggers = prepareTriggers(
-	triggers,
-	curry(reverseArguments(deleteTriggerProperty))('command')
-);
-
-const helpTrigger = lastElementOfArray(triggers);
-
-helpTrigger.command = curry(displayHelp)(preparedTriggers);
 
 
-exports.triggers = triggers;
+	return result;
+}
+
+exports.rebuildTrigger = rebuildTrigger;

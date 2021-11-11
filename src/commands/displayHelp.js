@@ -3,7 +3,7 @@ const {
 	getTriggerNames,
 	getTriggerDescription,
 	prepareTriggers
-} = require('../helpers/triggers/helpers/triggers');
+} = require('../helpers/triggers/triggers');
 const {
 	textQuote,
 	textOr,
