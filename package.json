@@ -13,6 +13,7 @@
   "author": "Dmitry Kurstev",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "node-vk-bot-api": "^3.5.0"
   },
   "engines": {
