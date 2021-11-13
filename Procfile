@@ -1,1 +1,1 @@
-web: npm start
+webworker: npm start
