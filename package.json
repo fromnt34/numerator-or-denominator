@@ -2,6 +2,10 @@
   "name": "numerator-or-denominator",
   "version": "1.0.0",
   "description": "🤖 VK bot for getting information about what the current week is now: the numerator or denominator?",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/fromnt34/numerator-or-denominator.git"
@@ -9,7 +13,9 @@
   "author": "Dmitry Kurstev",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0",
     "node-vk-bot-api": "^3.5.0"
+  },
+  "engines": {
+    "node": "16"
   }
 }
