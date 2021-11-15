@@ -1,6 +1,5 @@
 {
   "name": "numerator-or-denominator",
-  "version": "1.0.0",
   "description": "🤖 VK bot for getting information about what the current week is now: the numerator or denominator?",
   "main": "./src/index.js",
   "scripts": {
