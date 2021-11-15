@@ -1,5 +1,5 @@
 // helpers
-const { getWeekNumber } = require('../helpers/dates/dates');
+const { timestampToDate, getWeekNumber } = require('../helpers/dates/dates');
 const { isEven } = require('../helpers/numbers/numbers');
 
 
@@ -10,10 +10,8 @@ function numeratorOrDenominator(context) {
 
 
 	const message = context.message;
-	// timestamp
-	const messageSendingTime = message.date;
-	// convert to date object
-	const messageSendingDate = new Date(messageSendingTime * 1000);
+	const messageSendingTimestamp = message.date;
+	const messageSendingDate = timestampToDate(messageSendingTimestamp);
 	const weekNumber = getWeekNumber(messageSendingDate);
 
 

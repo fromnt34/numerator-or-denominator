@@ -1,3 +1,10 @@
+function timestampToDate(timestamp) {
+    return new Date(timestamp * 1000);
+}
+
+exports.timestampToDate = timestampToDate;
+
+
 function getWeekNumber(date) {
 	const dayInMs = 86400000;
 
