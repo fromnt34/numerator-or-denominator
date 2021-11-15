@@ -5,6 +5,17 @@ function timestampToDate(timestamp) {
 exports.timestampToDate = timestampToDate;
 
 
+function convertUTCDateToLocalDate(date) {
+    const offset = date.getTimezoneOffset();
+    const offsetInSeconds = offset * 60;
+    const offsetInMs = offsetInSeconds * 1000;
+
+    return new Date(date.getTime() - offsetInMs);
+}
+
+exports.convertUTCDateToLocalDate = convertUTCDateToLocalDate;
+
+
 function getWeekNumber(date) {
 	const dayInMs = 86400000;
 
