@@ -20,16 +20,16 @@ function getWeekNumber(date) {
 	const dayInMs = 86400000;
 
 
-	const dateYear = date.getFullYear();
-	const dateMonth = date.getMonth();
-	const dateDay = date.getDate();
+	const dateYear = date.getUTCFullYear();
+	const dateMonth = date.getUTCMonth();
+	const dateDay = date.getUTCDate();
 
     const roundedDate = new Date(Date.UTC(dateYear, dateMonth, dateDay));
 
 
-    // set to nearest thursday: current date + 4 - current day number
+    // set to nearest Thursday: current date + 4 - current day number
     const roundedDateDay = roundedDate.getUTCDate();
-    // make sunday's day number 7
+    // make Sunday's day number 7
     const roundedDateWeekDayNumber = roundedDate.getUTCDay() || 7;
 
     roundedDate.setUTCDate(roundedDateDay + 4 - roundedDateWeekDayNumber);
@@ -41,7 +41,7 @@ function getWeekNumber(date) {
     const firstDayOfYear = new Date(Date.UTC(roundedDateYear, 0, 1));
 
 
-    // calculate full weeks to nearest thursday
+    // calculate full weeks to nearest Thursday
     const weekNumber = Math.ceil((((roundedDate - firstDayOfYear) / dayInMs) + 1) / 7);
 
     return weekNumber;
