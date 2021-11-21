@@ -50,8 +50,8 @@ function makeTextList(elements) {
 		const element = elements[index];
 
 		if (isLastIndexInArray(elements, index)) {
-			localVariables.textListElementEnd = '.';
 			localVariables.textNewline = '';
+			localVariables.textListElementEnd = '.';
 		}
 
 		result +=

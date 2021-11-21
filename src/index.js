@@ -2,7 +2,7 @@ require('dotenv').config();
 const VkBot = require('node-vk-bot-api');
 
 // helpers
-const { triggers } = require('./triggers/triggers');
+const triggers = require('./triggers/triggers');
 const { rebuildTrigger, prepareTriggers } = require('./helpers/triggers/triggers');
 const { fromAdvancedObjectToNormal } = require('./helpers/objects/objects');
 const { curry, reverseArguments } = require('./helpers/functionalProgramming/functionalProgramming');
@@ -11,17 +11,17 @@ const { curry, reverseArguments } = require('./helpers/functionalProgramming/fun
 
 const bot = new VkBot(process.env.TOKEN);
 
-const preparedTriggers = prepareTriggers(
+const triggersAsAdvancedObject = prepareTriggers(
 	triggers,
-	curry(reverseArguments(rebuildTrigger))({ names: 'keys', command: 'value' })
+	curry(reverseArguments(rebuildTrigger))({ names: 'keys', handler: 'value' })
 );
 
-const triggersAndCommands = fromAdvancedObjectToNormal(preparedTriggers);
+const triggersAndHandlers = fromAdvancedObjectToNormal(triggersAsAdvancedObject);
 
-for (const trigger in triggersAndCommands) {
-	const command = triggersAndCommands[trigger];
+for (const trigger in triggersAndHandlers) {
+	const handler = triggersAndHandlers[trigger];
 
-	bot.command(trigger, command);
+	bot.command(trigger, handler);
 }
 
 

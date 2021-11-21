@@ -3,18 +3,18 @@ const { objectCopy } = require('../objects/objects');
 
 
 
-function getTriggerNames(trigger) {
-	return trigger.names;
+function makeTriggers(...triggers) {
+	return triggers;
 }
 
-exports.getTriggerNames = getTriggerNames;
+exports.makeTriggers = makeTriggers;
 
 
-function getTriggerDescription(trigger) {
-	return trigger.description;
+function makeTrigger(properties) {
+	return properties;
 }
 
-exports.getTriggerDescription = getTriggerDescription;
+exports.makeTrigger = makeTrigger;
 
 
 function deleteTriggerProperty(trigger, property) {
@@ -28,29 +28,36 @@ function deleteTriggerProperty(trigger, property) {
 exports.deleteTriggerProperty = deleteTriggerProperty;
 
 
-
-function prepareTriggers(triggers, prepareFunction) {
-	const preparedTriggers = triggers.map(prepareFunction);
-
-	return preparedTriggers;
-}
-
-exports.prepareTriggers = prepareTriggers;
-
-
 function rebuildTrigger(trigger, transformation) {
-	const result = {};
-
-
 	for (const untransformedKey in transformation) {
 		const transformedKey = transformation[untransformedKey];
 		const value = trigger[untransformedKey];
 
-		result[transformedKey] = value;
+		trigger = deleteTriggerProperty(trigger, untransformedKey);
+
+		trigger[transformedKey] = value;
 	}
 
 
-	return result;
+	return trigger;
 }
 
 exports.rebuildTrigger = rebuildTrigger;
+
+
+function getTriggerByIndex(triggers, index) {
+	if (index < 0) {
+		return triggers[triggers.length + index];
+	} else {
+		return triggers[index];
+	}
+}
+
+exports.getTriggerByIndex = getTriggerByIndex;
+
+
+function prepareTriggers(triggers, prepareFunction) {
+	return triggers.map(prepareFunction);
+}
+
+exports.prepareTriggers = prepareTriggers;

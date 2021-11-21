@@ -5,12 +5,3 @@ function isLastIndexInArray(array, index) {
 }
 
 exports.isLastIndexInArray = isLastIndexInArray;
-
-
-function lastElementOfArray(array) {
-	const lastIndex = array.length - 1;
-
-	return array[lastIndex];
-}
-
-exports.lastElementOfArray = lastElementOfArray;

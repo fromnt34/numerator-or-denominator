@@ -28,7 +28,7 @@ function numeratorOrDenominator(context) {
 	const isWeekEven = isEven(weekNumber);
 
 
-	// check if message sending day of week is sunday
+	// check if message sending day of week is Sunday
 	const messageSendingDayOfWeek = messageSendingLocalDate.getUTCDay();
 
 	if (messageSendingDayOfWeek === 0) {

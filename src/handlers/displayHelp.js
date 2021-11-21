@@ -1,9 +1,5 @@
 // helpers
-const {
-	getTriggerNames,
-	getTriggerDescription,
-	prepareTriggers
-} = require('../helpers/triggers/triggers');
+const { prepareTriggers } = require('../helpers/triggers/triggers');
 const {
 	textQuote,
 	textOr,
@@ -23,11 +19,11 @@ function displayHelp(triggers, context) {
 	const triggersDefinitions = prepareTriggers(
 		triggers,
 		(trigger) => {
-			const triggerNames = getTriggerNames(trigger);
+			const triggerNames = trigger.names;
 			const triggerQuotedNames = triggerNames.map((name) => wrap(name, textQuote));
 			const triggerJoinedNames = triggerQuotedNames.join(' ' + textOr + ' ');
 
-			const triggerDescription = getTriggerDescription(trigger);
+			const triggerDescription = trigger.description;
 
 			return deleteLastSymbol(makeTextDefinition(triggerJoinedNames, triggerDescription));
 		}
@@ -36,7 +32,7 @@ function displayHelp(triggers, context) {
 	const triggersDefinitionsTextedList = makeTextList(triggersDefinitions);
 
 
-	context.reply(template + (textNewline.repeat(2)) + triggersDefinitionsTextedList);
+	context.reply(template + textNewline.repeat(2) + triggersDefinitionsTextedList);
 }
 
 

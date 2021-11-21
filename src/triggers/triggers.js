@@ -1,36 +1,42 @@
-// commands
-const numeratorOrDenominator = require('../commands/numeratorOrDenominator');
-const displayHelp = require('../commands/displayHelp');
+// handlers
+const numeratorOrDenominator = require('../handlers/numeratorOrDenominator');
+const displayHelp = require('../handlers/displayHelp');
 
 // helpers
-const { deleteTriggerProperty, prepareTriggers } = require('../helpers/triggers/triggers');
-const { lastElementOfArray } = require('../helpers/arrays/arrays');
+const {
+	makeTriggers,
+	makeTrigger,
+	deleteTriggerProperty,
+	getTriggerByIndex,
+	prepareTriggers
+} = require('../helpers/triggers/triggers');
 const { curry, reverseArguments } = require('../helpers/functionalProgramming/functionalProgramming');
 
 
 
-const triggers = [
-	{
+const triggers = makeTriggers(
+	makeTrigger({
 		names: ['Чз', 'Числитель или знаменатель'],
-		description: 'команда выводит информацию о текущей неделе, числитель она или знаменатель',
-		command: numeratorOrDenominator,
-	},
-	{
+		handler: numeratorOrDenominator,
+		description: 'команда выводит информацию о текущей неделе, числитель она или знаменатель'
+	}),
+	makeTrigger({
 		names: ['Помощь', 'Help'],
-		description: 'команда выводит информацию о доступных командах',
-		command: null
-	}
-];
-
-// add to "Help" trigger a command
-const preparedTriggers = prepareTriggers(
-	triggers,
-	curry(reverseArguments(deleteTriggerProperty))('command')
+		handler: null,
+		description: 'команда выводит информацию о доступных командах'
+	})
 );
 
-const helpTrigger = lastElementOfArray(triggers);
+// add to "Help" trigger a handler
+const preparedTriggers = prepareTriggers(
+	triggers,
+	curry(reverseArguments(deleteTriggerProperty))('handler')
+);
 
-helpTrigger.command = curry(displayHelp)(preparedTriggers);
+const helpTrigger = getTriggerByIndex(triggers, -1);
+
+helpTrigger.handler = curry(displayHelp)(preparedTriggers);
 
 
-exports.triggers = triggers;
+
+module.exports = triggers;
